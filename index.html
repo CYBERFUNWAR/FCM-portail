@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#7B0000">
+
+<!-- ╔══════════════════════════════════════════════════════════════════════╗
+     ║   CONFIGURATION DU CLUB — Seule zone à modifier pour un autre club    ║
+     ╚══════════════════════════════════════════════════════════════════════╝ -->
+<script id="club-config">
+window.CLUB = {
+
+  /* ── Identité du club ─────────────────────────────────────────────── */
+  nomCourt   : "Club FCM",
+  nomComplet : "Full Contact Maximois",
+  discipline : "KARATÉ FULL CONTACT",
+  sousTitre  : "Espace des enseignants",
+  saison     : "Saison 2026-2027",
+  titrePage  : "Club FCM — Espace des enseignants",
+  logoUrl    : "",   // optionnel : URL ou data:image/png;base64,... remplace le médaillon 🥋
+
+  /* ── Couleurs ─────────────────────────────────────────────────────── */
+  couleurs : {
+    principale  : "#7B0000",   // rouge bordeaux FCM
+    principale2 : "#A00000",
+    accent      : "#C9A84C",   // doré FCM
+    accent2     : "#E8C96A"
+  },
+
+  /* ── Applications du portail ──────────────────────────────────────── */
+  /* Ajouter ou retirer librement des cartes (icone = émoji ou texte court) */
+  apps : [
+    {
+      icone : "📘",
+      nom   : "Fiche de Suivi",
+      texte : "Assiduité, progression technique, grades, compétitions et bilans de saison de chaque élève.",
+      url   : "https://cyberfunwar.github.io/fcm-suivi/"
+    },
+    {
+      icone : "🥋",
+      nom   : "Évaluateur de Grades",
+      texte : "Grilles d'évaluation par ceinture, décision automatique, fiches d'examen et statistiques.",
+      url   : "https://cyberfunwar.github.io/FCM-GRADE/"
+    }
+  ]
+};
+</script>
+<!-- ╔══════════════ FIN DE LA CONFIGURATION CLUB ══════════════╗ -->
+
+<title>Club FCM — Espace des enseignants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:  #7B0000;
+    --red2: #A00000;
+    --gold: #C9A84C;
+    --gold2:#E8C96A;
+    --ink:  #1F1F1F;
+    --paper:#FFFDF8;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:
+      linear-gradient(160deg, rgba(0,0,0,.28), rgba(0,0,0,0) 45%),
+      repeating-linear-gradient(115deg, rgba(255,255,255,.022) 0 2px, rgba(0,0,0,0) 2px 9px),
+      linear-gradient(180deg, var(--red) 0%, var(--red2) 58%, var(--red) 100%);
+    min-height:100%;
+    display:flex; flex-direction:column; align-items:center;
+    overflow-x:hidden;
+  }
+
+  /* ── En-tête ── */
+  .hero{
+    text-align:center;
+    padding:56px 20px 30px;
+    animation:pose .7s ease both;
+  }
+  .badge{
+    display:inline-block;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:900; font-size:13px; letter-spacing:3px;
+    color:var(--red);
+    background:linear-gradient(180deg, var(--gold2), var(--gold));
+    padding:4px 16px 3px; border-radius:2px;
+    margin-bottom:16px;
+  }
+  .medaillon{
+    width:86px; height:86px; margin:0 auto 18px;
+    border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, #fff, #EDE6D6 62%, #D9CCAC);
+    border:3px solid var(--gold);
+    box-shadow:0 8px 26px rgba(0,0,0,.35), inset 0 0 0 5px rgba(123,0,0,.08);
+    display:flex; align-items:center; justify-content:center;
+    font-size:42px; overflow:hidden;
+  }
+  .medaillon img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
+  h1{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:900; font-size:clamp(40px, 7vw, 62px);
+    letter-spacing:2px; line-height:.95; color:#fff;
+    text-transform:uppercase;
+    text-shadow:0 3px 14px rgba(0,0,0,.35);
+  }
+  .full-name{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:500; font-size:clamp(17px, 2.6vw, 22px);
+    letter-spacing:5px; text-transform:uppercase;
+    color:var(--gold2); margin-top:8px;
+  }
+  .season{
+    margin-top:14px;
+    font-size:12.5px; letter-spacing:1px;
+    color:rgba(255,255,255,.75);
+  }
+  .season b{ color:#fff; font-weight:600; }
+
+  /* ── La ceinture ── */
+  .obi{
+    position:relative;
+    width:100%;
+    padding:46px 20px 64px;
+    display:flex; justify-content:center;
+    flex:1;
+  }
+  .obi::before{           /* la ceinture dorée qui traverse la page */
+    content:"";
+    position:absolute; left:0; right:0; top:50%;
+    height:58px; transform:translateY(-50%);
+    background:linear-gradient(180deg, var(--gold2) 0%, var(--gold) 45%, #A8873A 100%);
+    box-shadow:0 6px 22px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.45), inset 0 -3px 0 rgba(0,0,0,.18);
+  }
+  .obi::after{             /* le nœud */
+    content:"";
+    position:absolute; left:50%; top:50%;
+    width:36px; height:76px;
+    transform:translate(-50%,-50%) rotate(4deg);
+    background:linear-gradient(160deg, var(--gold2), #A8873A);
+    border-radius:6px;
+    box-shadow:0 5px 14px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.4);
+  }
+  .cards{
+    position:relative; z-index:1;
+    display:flex; gap:34px; flex-wrap:wrap;
+    justify-content:center; align-items:stretch;
+    max-width:900px; width:100%;
+  }
+  .card{
+    flex:1 1 320px; max-width:400px;
+    background:var(--paper);
+    border-radius:14px;
+    border-top:5px solid var(--gold);
+    box-shadow:0 16px 44px rgba(0,0,0,.38);
+    padding:30px 28px 26px;
+    text-decoration:none; color:var(--ink);
+    display:flex; flex-direction:column; gap:12px;
+    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    animation:pose .7s ease both;
+  }
+  .card:nth-child(2){ animation-delay:.12s; }
+  .card:nth-child(3){ animation-delay:.24s; }
+  .card:hover, .card:focus-visible{
+    transform:translateY(-7px);
+    box-shadow:0 26px 60px rgba(0,0,0,.45);
+    border-top-color:var(--red);
+    outline:none;
+  }
+  .card:focus-visible{ box-shadow:0 0 0 4px var(--gold2), 0 26px 60px rgba(0,0,0,.45); }
+  .card .icone{
+    width:58px; height:58px; border-radius:12px;
+    background:linear-gradient(160deg, var(--red), var(--red2));
+    display:flex; align-items:center; justify-content:center;
+    font-size:29px;
+    box-shadow:inset 0 0 0 2px rgba(201,168,76,.55);
+  }
+  .card h2{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700; font-size:29px; letter-spacing:.6px;
+    text-transform:uppercase; color:var(--red);
+  }
+  .card p{ font-size:14px; line-height:1.55; color:#4a4640; flex:1; }
+  .card .go{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700; font-size:16px; letter-spacing:2px;
+    text-transform:uppercase; color:var(--red);
+    display:flex; align-items:center; gap:8px;
+  }
+  .card .go::after{ content:"→"; transition:transform .2s ease; }
+  .card:hover .go::after{ transform:translateX(6px); }
+
+  /* ── Pied de page ── */
+  footer{
+    text-align:center;
+    padding:0 20px 30px;
+    font-size:11.5px; letter-spacing:.4px;
+    color:rgba(255,255,255,.62);
+  }
+  footer .sep{ color:var(--gold); margin:0 8px; }
+
+  @keyframes pose{
+    from{ opacity:0; transform:translateY(16px); }
+    to  { opacity:1; transform:translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero, .card{ animation:none; }
+    .card, .card .go::after{ transition:none; }
+  }
+  @media (max-width: 740px){
+    .obi{ padding:26px 18px 46px; }
+    .obi::before{ top:0; bottom:0; height:auto; transform:none; }
+    .obi::after{ display:none; }
+    .cards{ gap:22px; }
+    .hero{ padding-top:42px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="medaillon" id="medaillon">🥋</div>
+  <div class="badge" id="p-badge">KARATÉ FULL CONTACT</div>
+  <h1 id="p-nom">Club FCM</h1>
+  <div class="full-name" id="p-nomComplet">Full Contact Maximois</div>
+  <div class="season"><span id="p-sousTitre">Espace des enseignants</span> · <b id="p-saison">Saison 2026-2027</b></div>
+</header>
+
+<main class="obi">
+  <nav class="cards" id="cards" aria-label="Applications du club"></nav>
+</main>
+
+<footer>
+  <span id="p-footer">Club FCM — Full Contact Maximois</span>
+  <span class="sep">•</span>
+  Julien Boulet - Cyberfun © 2026 — Tous droits réservés
+</footer>
+
+<script>
+(function(){
+  var C = window.CLUB || {};
+  /* Couleurs */
+  try{
+    var r = document.documentElement.style, k = C.couleurs || {};
+    if (k.principale)  r.setProperty('--red',  k.principale);
+    if (k.principale2) r.setProperty('--red2', k.principale2);
+    if (k.accent)      r.setProperty('--gold', k.accent);
+    if (k.accent2)     r.setProperty('--gold2',k.accent2);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc && k.principale) tc.setAttribute('content', k.principale);
+  }catch(e){}
+  /* Textes */
+  function txt(id, v){ var el = document.getElementById(id); if (el && v) el.textContent = v; }
+  txt('p-badge', C.discipline);
+  txt('p-nom', C.nomCourt);
+  txt('p-nomComplet', C.nomComplet);
+  txt('p-sousTitre', C.sousTitre);
+  txt('p-saison', C.saison);
+  txt('p-footer', C.nomCourt + ' — ' + C.nomComplet);
+  if (C.titrePage) document.title = C.titrePage;
+  /* Logo */
+  if (C.logoUrl){
+    var m = document.getElementById('medaillon');
+    m.textContent = '';
+    var img = document.createElement('img');
+    img.src = C.logoUrl; img.alt = C.nomCourt || 'Logo du club';
+    m.appendChild(img);
+  }
+  /* Cartes d'applications */
+  var wrap = document.getElementById('cards');
+  (C.apps || []).forEach(function(app){
+    var a = document.createElement('a');
+    a.className = 'card';
+    a.href = app.url;
+    var ic = document.createElement('div'); ic.className = 'icone'; ic.textContent = app.icone || '▶';
+    var h = document.createElement('h2'); h.textContent = app.nom || '';
+    var p = document.createElement('p'); p.textContent = app.texte || '';
+    var g = document.createElement('div'); g.className = 'go'; g.textContent = 'Ouvrir';
+    a.appendChild(ic); a.appendChild(h); a.appendChild(p); a.appendChild(g);
+    wrap.appendChild(a);
+  });
+})();
+</script>
+</body>
+</html>
